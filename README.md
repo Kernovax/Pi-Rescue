@@ -211,36 +211,13 @@ git clone https://github.com/<username>/Pi-Rescue.git
 ``` bash
 cd Pi-Rescue
 ```
-
-### Install dependencies
-
-``` bash
-pip install -r requirements.txt
-```
-
-### Create your configuration
-
-``` bash
-cp config.example.json config.json
-```
-
-Edit `config.json` credentials with your hotspot name, passwords, and
-other settings.
-
-
-### Test Pi-Rescue manually
-
-``` bash
-python3 rescue_wifi.py
-```
-
 ### Configure the Wi-Fi Connection Timeout
 
 By default, Pi-Rescue waits **15 seconds** after boot for NetworkManager to establish a Wi-Fi connection before starting the recovery hotspot.
 
 The timeout can be changed according to your network setup or requirements.
 
-In `rescue_wifi.py`, locate:
+In `rescue_wifi.py` file, locate:
 
 ```python
 time.sleep(15)
@@ -248,16 +225,50 @@ time.sleep(15)
 
 Change `15` to the desired number of seconds.
 
+### Install dependencies
+
+``` bash
+pip install -r requirements.txt
+```
+
+### Create Your Configuration
+
+Run the following command to create your configuration file (config.json):
+
+``` bash
+cp config.example.json config.json
+```
+This command creates `config.json` and copies the contents of `config.example.json` into it.
+
+Open the newly created configuration file:
+
+```bash
+nano config.json
+```
+
+**Important:** The `config.example.json` included in this repository is only an example configuration. Before running Pi-Rescue, edit `config.json` and replace the placeholder values with your actual hotspot name, password, and other settings. Do not commit a modified `config.json` containing your real passwords or Wi-Fi credentials to the public repository.
+
+### Test Pi-Rescue manually
+
+``` bash
+python3 rescue_wifi.py
+```
+
 ## Startup Service
 
-Pi-Rescue can be configured as a systemd service so that it starts
-automatically when the Raspberry Pi boots.
+Pi-Rescue can be configured as a systemd service so that it starts automatically when the Raspberry Pi boots.
 
 ### 1. Service File
 
 The systemd service configuration is provided in `Pi-Rescue.service`.
 
-Before installing it, update the `User` and `ExecStart` paths in the
+Before installing the service file, open the service file from the repository:
+
+```bash
+nano Pi-Rescue.service
+```
+
+Update the `User` and `ExecStart` values in the
 service file to match your system.
 
 ### 2. Copy the Service File
@@ -307,54 +318,17 @@ To view the service logs:
 journalctl -u Pi-Rescue.service
 ```
 
-## Configuration Overview
+## config.json Overview
 
-Pi-Rescue uses a `config.json` file to save Wi-Fi credentials:
+Pi-Rescue uses `config.json` file to store its configurations and Wi-Fi information:
 
 -   Web page login password
 -   Hotspot SSID
 -   Hotspot password
+-   Wi-Fi passwords 
 -   Wi-Fi connection status
--   Connection timeout
--   First 15 logs of Wi-Fi connections
+-   Last 15 logs of Wi-Fi connections
 
-### Example
-
-``` json
-{
-  "portal_password": "your_password",
-  "hotspot_ssid": "Pi-Rescue",
-  "hotspot_password": "your_password",
-  "known_networks": {
-    "Home_wifi": {
-      "password": "wifi_password",
-      "priority": 50,
-      "status": "Connected",
-      "last_connected": "",
-      "last_error": "",
-      "logs": [
-        {
-          "time": "",
-          "result": ""
-        }
-      ]
-    },
-    "Pi-Rescue": {
-      "password": "777",
-      "priority": 50,
-      "status": "",
-      "last_connected": "",
-      "last_error": "",
-      "logs": [
-        {
-          "time": "",
-          "result": ""
-        }
-      ]
-    }
-  }
-}
-```
 
 ## Use Cases
 
@@ -387,7 +361,8 @@ Current features include:
 
 Additional improvements and new features are planned.
 
-##Current Limitation
+## Current Limitation
+
 The current version checks the Wi-Fi interface (wlan0) when deciding whether recovery mode is required. If the Raspberry Pi has an active Ethernet connection, Pi-Rescue may still start the recovery hotspot even though the Pi is already reachable through Ethernet.
 
 Ethernet connection detection and overall network-state detection are planned for a future revision.
