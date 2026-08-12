@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Pi-Rescue</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🍓 Pi-Rescue</h1>
+
+    <h2>Available Wi-Fi Networks</h2>
+
+    {% if failure %}
+        <p class="error">{{ failure }}</p>
+    {% endif %}
+
+    <div class="actions">
+
+        <a href="/refresh">
+            <button>Refresh</button>
+        </a>
+
+        <a href="/exit">
+            <button>Exit</button>
+        </a>
+
+        
+            <button
+                type="button"
+                onclick="terminatePortal()">
+                Terminate
+            </button>
+            <p
+                id="terminateMsg"
+                class="status-message">
+            </p>
+        
+
+    </div>
+
+    <hr>
+
+    {% if networks %}
+
+    {% for n in networks %}
+
+    <div class="network">
+
+        <form 
+         action="/password"
+         method="post"
+         data-saved="{{ 'ture' if n.saved else 'false' }}"
+         onsubmit="return connectNetwork(event,{{ loop.index }})">
+              
+
+            <h3>📶 {{ n.ssid }}{% if n.saved %} (saved){% endif %}</h3>
+
+            {% if n.error %}
+                <p class="network-error">
+                    {{ n.error }}
+                </p>
+            {% endif %}
+
+            <p class="security-text">
+                <strong>Security:</strong> {{ n.security }}
+            </p>
+
+            <input
+                type="hidden"
+                name="ssid"
+                value="{{ n.ssid }}">
+
+            <button
+                id="btn{{ loop.index}}"
+                type="submit">
+
+                Connect
+            </button>
+            <p
+                id="msg{{ loop.index }}"
+                class="status-message">
+            </p>
+        </form>
+
+    </div>
+
+    {% endfor %}
+
+    {% else %}
+
+    <div class="network">
+
+        <p style="text-align:center;color:#666;">
+
+            No Wi-Fi connections available.
+
+        </p>
+
+    </div>
+
+{% endif %}
+
+
+    <div class="footer">
+
+        Pi-Rescue v1.0 • Raspberry Pi Recovery Portal
+
+    </div>
+
+</div>
+
+<script>
+
+
+function terminatePortal(){
+
+
+    document.getElementById("terminateMsg").innerHTML="Terminating Pi-Rescue...";
+
+    setTimeout(function(){
+
+        window.location="/terminate";
+
+    },1000);
+
+}
+
+function connectNetwork(event,index){
+    event.preventDefault();
+    var form = event.target;
+    var msgEl = document.getElementById("msg"+index);
+    var btnEl = document.getElementById("btn"+index);
+    var isSaved = form.dataset.saved === "true";
+    
+    btnEl.disabled = true;
+
+    if (!isSaved) {
+        msgEl.innerHTML = "Loading...";
+        requestAnimationFrame(function(){
+            requestAnimationFrame(function(){
+                setTimeout(function(){
+                    form.submit();
+                }, 150);
+            });
+        });
+        return false;
+    }
+
+    msgEl.innerHTML = "Connecting to Pi-Rescue...";
+    var data = new FormData(form);
+
+    requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+            setTimeout(function(){
+                fetch(form.action, { method: "POST", body: data })
+                    .then(function(){
+                        window.location.href = "/wifi";
+                    })
+                    .catch(function(){
+                        waitForPiRescue(msgEl);
+                    });
+            }, 150);
+        });
+    });
+    return false;
+}
+
+function waitForPiRescue(msgEl){
+    var attempts = 0;
+    var maxAttempts = 20; // ~40s total at 2s intervals
+
+    msgEl.innerHTML = "Waiting for Pi-Rescue to come back...";
+
+    var interval = setInterval(function(){
+        attempts++;
+        fetch("/ping", { cache: "no-store" })
+            .then(function(){
+                clearInterval(interval);
+                msgEl.innerHTML = "Pi-Rescue is back! Reloading...";
+                window.location.href = "/wifi";
+            })
+            .catch(function(){
+                if(attempts >= maxAttempts){
+                    clearInterval(interval);
+                    msgEl.innerHTML =
+                        "No response — likely connected successfully. " +
+                        "Reconnect your phone to the new Wi-Fi network, " +
+                        "or wait and reopen this page if Pi-Rescue is still up.";
+                }
+            });
+    }, 2000);
+}
+</script>
+
+</body>
+
+</html>
