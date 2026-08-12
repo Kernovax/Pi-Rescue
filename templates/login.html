@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pi Rescue Login</title>
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css')}}"
+</head>
+<body>
+
+<div class="container">
+<h1>🍓 Pi-Rescue</h1>
+
+
+<h2>Pi Rescue Login</h2>
+
+<form action="/login" method="post">
+
+    <input
+        type="password"
+        name="password"
+        placeholder="Portal Password"
+        required>
+
+    <br><br>
+
+    <button type="submit">
+        Login
+    </button>
+
+</form>
+
+<div class="footer">
+ Pi-Rescue v1.0
+</div>
+
+</div>
+
+</body>
+</html>
