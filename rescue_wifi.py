@@ -62,7 +62,7 @@ def internet_available():
             ["ping", "-c", "1", "8.8.8.8"],
             timeout=5,
             stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
         )
         return True
     except Exception:
