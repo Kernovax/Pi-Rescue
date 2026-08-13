@@ -203,7 +203,7 @@ Pi-Rescue/
 ### Clone the repository
 
 ``` bash
-git clone https://github.com/<username>/Pi-Rescue.git
+git clone https://github.com/Kernovax/Pi-Rescue.git
 ```
 
 ### Move into the project directory
