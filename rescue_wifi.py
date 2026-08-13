@@ -1,12 +1,10 @@
 """
-Pi-Rescue v1.0
+Pi-Rescue
 
 Automatic Wi-Fi recovery hotspot for headless Raspberry Pi.
 
-This script monitors Wi-Fi connectivity during startup. If no Wi-Fi
-connection is established, it starts a temporary recovery hotspot(Pi-Rescue)
-and launches a Flask web portal that allows users to configure
-wireless settings without requiring SSH, a monitor, or a keyboard.
+Pi-Rescue is an automatic Wi-Fi recovery system for headless Raspberry Pi devices. 
+When the Pi cannot connect to a saved Wi-Fi network, it starts a temporary recovery hotspot and provides a web portal for configuring a new connection.
 
 Author: Hrithik
 License: MIT
@@ -51,10 +49,23 @@ def wifi_connected():   # Checks whether the Pi has a wifi connection.
         parts = output.split(":", 1)
         connection = parts[1].strip() if len(parts) > 1 else ""
 
+
         return connection not in ("--", "")
 
     except Exception:
 
+        return False
+
+def internet_available():
+    try:
+        subprocess.check_output(
+            ["ping", "-c", "1", "8.8.8.8"],
+            timeout=5,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        return True
+    except Exception:
         return False
 
 
@@ -296,9 +307,9 @@ def attempt_connection(ssid, password):
 
         cfg = load_config()
 
-        if "Secrets were required" in message:
+        if "Secrets were required" in message:    # Clear the saved password only if authentication failed to prevent repeated connection attempts using an incorrect passsword.
 
-            display_error = "Wrong Password"   # Clear the saved password only if authentication failed to prevent repeated connection attempts using an incorrect passsword.
+            display_error = "Wrong Password" 
             clear_password = True
 
         elif "DHCP timeout" in message:
@@ -406,11 +417,11 @@ def rescue_mode():
 if __name__ == "__main__":
 
     # Gives NetworkManager a few seconds to establish a normal Wi-Fi connection after boot.
-    time.sleep(4)
+    time.sleep(15)
 
-    # If internet is already available recovery mode is not required.
+    # If Wi-Fi is already connected,recovery mode is not required.
     if wifi_connected():
         
         sys.exit(0)
-
-    rescue_mode()
+    else:
+        rescue_mode()
