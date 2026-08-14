@@ -149,6 +149,25 @@ It provides:
 The entire recovery process can be completed from a mobile phone or any
 Wi-Fi-enabled device.
 
+## Web Portal
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="Screenshots/Login_page.png" width="300"><br>
+      <b>Login</bF
+    </td>
+    <td align="center">
+      <img src="Screenshots/Wi-Fi_page.png" width="300"><br>
+      <b>Wi-Fi Selection</b>
+    </td>
+    <td align="center">
+      <img src="Screenshots/Password_page.png" width="300"><br>
+      <b>Password Entry</b>
+    </td>
+  </tr>
+</table>
+
 ## Accessing the Portal
 
 After connecting to the Pi-Rescue hotspot, open a browser and go to:
@@ -178,8 +197,7 @@ Pi-Rescue/
 │   ├── login.html
 │   └── wifi.html
 ├── static/
-├── screenshots/
-└── docs/
+└── screenshots/
 ```
 
 ## Requirements
