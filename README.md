@@ -155,15 +155,15 @@ Wi-Fi-enabled device.
   <tr>
     <td align="center">
       <img src="Screenshots/Login_page.png" width="300"><br>
-      <b>Login</bF
+      <b>Login Page</b>
     </td>
     <td align="center">
       <img src="Screenshots/Wi-Fi_page.png" width="300"><br>
-      <b>Wi-Fi Selection</b>
+      <b>Wi-Fi Selection Page</b>
     </td>
     <td align="center">
       <img src="Screenshots/Password_page.png" width="300"><br>
-      <b>Password Entry</b>
+      <b>Password Entry Page</b>
     </td>
   </tr>
 </table>
