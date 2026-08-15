@@ -1,33 +1,5 @@
 {
   "portal_password": "your_password",
   "hotspot_ssid": "Pi-Rescue",
-  "hotspot_password": "your_password",
-  "known_networks": {
-    "Home_wifi": {
-      "password": "wifi_password",
-      "priority": 50,
-      "status": "Connected",
-      "last_connected": "",
-      "last_error": "",
-      "logs": [
-        {
-          "time": "",
-          "result": ""
-        }
-      ]
-    },
-    "Pi-Rescue": {
-      "password": "hotspot_password",
-      "priority": 50,
-      "status": "",
-      "last_connected": "",
-      "last_error": "",
-      "logs": [
-        {
-          "time": "",
-          "result": ""
-        }
-      ]
-    }
-  }
+  "known_networks": {}
 }
