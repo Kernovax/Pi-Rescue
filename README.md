@@ -1,4 +1,4 @@
-# Pi-Rescue v1.0
+# Pi-Rescue v1.0.0
 
 ## Automatic Wi-Fi Recovery Hotspot for Headless Raspberry Pi
 
@@ -17,7 +17,7 @@ Raspberry Pi OS installations.
 ## Why Pi-Rescue?
 
 Headless Raspberry Pis are often installed in locations where connecting
-a monitor or keyboard is inconvenient---or impossible.
+a monitor or keyboard is inconvenient—or impossible.
 
 Losing network connectivity can happen for many reasons:
 
@@ -382,9 +382,9 @@ Pi-Rescue is useful for:
 
 ## Current Status
 
-**Working Prototype of v1.0**
+**Working Prototype of v1.0.0**
 
-Pi-Rescue is currently designed primarily for Raspberry Pi setups that rely on Wi-Fi for network access, so Ethernet detection is not included in v1.0 of Pi-Rescue.
+Pi-Rescue is currently designed primarily for Raspberry Pi setups that rely on Wi-Fi for network access, so Ethernet detection is not included in v1.0.0 of Pi-Rescue.
 
 Current features include:
 
@@ -439,7 +439,7 @@ Ensure the application is bound to:
 app.run(host="0.0.0.0")
 ```
 
-### Cannot access 10.42.0.1
+### Unable to access 10.42.0.1
 
 -   Make sure your device is connected to Pi-Rescue Wi-Fi.
 -   Disable mobile data.
