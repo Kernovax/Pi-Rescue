@@ -186,18 +186,13 @@ If the page does not load:
 
 ``` text
 Pi-Rescue/
-├── rescue_wifi.py          # Main application
+├── rescue_wifi.py          # Main program
 ├── config.example.json     # Example configuration
-├── requirements.txt
-├── Pi-Rescue.service
-├── README.md
-├── LICENSE
-├── .gitignore
 ├── templates/
 │   ├── login.html
 │   └── wifi.html
-├── static/
-└── screenshots/
+└── static/
+    └── style.css
 ```
 
 ## Requirements
@@ -338,16 +333,40 @@ journalctl -u Pi-Rescue.service
 
 ## config.json Overview
 
-Pi-Rescue uses `config.json` file to store its configurations and Wi-Fi information:
+Pi-Rescue uses the `config.json` file to store its configurations and Wi-Fi information, such as:
 
 -   Web page login password
 -   Hotspot SSID
--   Hotspot password
 -   Wi-Fi passwords 
 -   Wi-Fi connection status
+-   Last connection time
+-   Last connection error
 -   Last 15 logs of Wi-Fi connections
 
+## Example Configuration File
 
+The following is an example of the `config.json` file showing the structure used by Pi-Rescue to store its configuration and Wi-Fi network information.
+```json
+{
+    "portal_password": "your_password",
+    "hotspot_ssid": "Pi-Rescue",
+    "known_networks": {
+        "Home_WiFi": {
+            "password": "wifi_password",
+            "priority": 50,
+            "status": "Connected",
+            "last_connected": "2026-08-15 12:00:00",
+            "last_error": "",
+            "logs": [
+                {
+                   "time": "2026-08-15 12:00:00",
+                    "result": "Connected"
+                }
+            ]
+        }
+    }
+}
+```
 ## Use Cases
 
 Pi-Rescue is useful for:
