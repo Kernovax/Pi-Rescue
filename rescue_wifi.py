@@ -1,5 +1,5 @@
 """
-Pi-Rescue
+Pi-Rescue v1.0.0
 
 Automatic Wi-Fi recovery hotspot for headless Raspberry Pi.
 
