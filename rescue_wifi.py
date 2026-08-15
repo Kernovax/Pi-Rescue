@@ -417,7 +417,7 @@ def rescue_mode():
 if __name__ == "__main__":
 
     # Gives NetworkManager a few seconds to establish a normal Wi-Fi connection after boot.
-    time.sleep(15)
+    time.sleep(15)  #Change this timeout according to your requirements.
 
     # If Wi-Fi is already connected,recovery mode is not required.
     if wifi_connected():
