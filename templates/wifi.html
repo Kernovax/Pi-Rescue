@@ -57,9 +57,8 @@
         <form 
          action="/password"
          method="post"
-         data-saved="{{ 'ture' if n.saved else 'false' }}"
+         data-saved="{{ 'true' if n.saved else 'false' }}"
          onsubmit="return connectNetwork(event,{{ loop.index }})">
-              
 
             <h3>📶 {{ n.ssid }}{% if n.saved %} (saved){% endif %}</h3>
 
@@ -175,7 +174,7 @@ function connectNetwork(event,index){
 
 function waitForPiRescue(msgEl){
     var attempts = 0;
-    var maxAttempts = 20; // ~40s total at 2s intervals
+    var maxAttempts = 20;
 
     msgEl.innerHTML = "Waiting for Pi-Rescue to come back...";
 
