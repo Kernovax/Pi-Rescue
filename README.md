@@ -189,7 +189,7 @@ Pi-Rescue/
 ├── rescue_wifi.py          # Main application
 ├── config.example.json     # Example configuration
 ├── requirements.txt
-├── pi-rescue.service
+├── Pi-Rescue.service
 ├── README.md
 ├── LICENSE
 ├── .gitignore
