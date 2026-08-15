@@ -6,7 +6,7 @@ Automatic Wi-Fi recovery hotspot for headless Raspberry Pi.
 Pi-Rescue is an automatic Wi-Fi recovery system for headless Raspberry Pi devices. 
 When the Pi cannot connect to a saved Wi-Fi network, it starts a temporary recovery hotspot and provides a web portal for configuring a new connection.
 
-Author: Hrithik
+Author: Kernovax
 License: MIT
 """
 
