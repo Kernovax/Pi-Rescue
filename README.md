@@ -261,6 +261,58 @@ nano config.json
 
 **Important:** The `config.example.json` included in this repository is only an example configuration. Before running Pi-Rescue, edit `config.json` and replace the placeholder values with your actual hotspot name, password, and other settings. Do not commit a modified `config.json` containing your real passwords or Wi-Fi credentials to the public repository.
 
+## Create the Pi-Rescue hotspot profile
+
+This is a one-time manual step. Pi-Rescue requires a NetworkManager hotspot profile named `Pi-Rescue` to provide the Wi-Fi network used to access its web portal.
+
+### Step 1: Create the Hotspot Profile
+
+```bash
+sudo nmcli connection add \
+type wifi \
+ifname wlan0 \
+con-name Pi-Rescue \
+autoconnect no \
+wifi.mode ap \
+wifi.ssid Pi-Rescue \
+ipv4.method shared \
+ipv6.method disabled
+```
+
+### Step 2: Configure the Security
+
+```bash
+sudo nmcli connection modify Pi-Rescue \
+wifi-sec.key-mgmt wpa-psk \
+wifi-sec.psk "your_hotspot_password"
+```
+
+Replace `your_hotspot_password` with the same password specified in the `hotspot_password` field of your `config.json`.
+
+### Step 3: Verify the Hotspot Profile
+
+Run this command to verify the important settings of the hotspot profile:
+
+```bash
+nmcli connection show Pi-Rescue | grep -E 'connection.id|connection.autoconnect|802-11-wireless.mode|802-11-wireless.ssid|ipv4.method'
+```
+
+### Step 4: Ensure that the output is similar to this:
+
+```text
+connection.id:              Pi-Rescue
+connection.autoconnect:     no
+802-11-wireless.mode:       ap
+802-11-wireless.ssid:       Pi-Rescue
+ipv4.method:                shared
+```
+
+**IMPORTANT NOTE:** 
+
+1) Use `Pi-Rescue` as the hotspot profile name. Pi-Rescue expects this connection name when activating the recovery hotspot. Using a different name will cause a runtime error.
+
+2) Verify that your Step 3 output shows the autoconnect field as `connection.autoconnect: no` because the hotspot should not be activated automatically at boot.
+
 ### Test Pi-Rescue manually
 
 ``` bash
