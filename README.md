@@ -291,7 +291,13 @@ Replace `your_hotspot_password` with the same password specified in the `hotspot
 
 ### Step 3: Verify the Hotspot Profile
 
-Run this command to verify the important settings of the hotspot profile:
+First, run the following command to verify that the `Pi-Rescue` hotspot profile has been created:
+
+```bash
+nmcli connection show
+```
+
+Then, run this command to verify the important settings of the hotspot profile:
 
 ```bash
 nmcli connection show Pi-Rescue | grep -E 'connection.id|connection.autoconnect|802-11-wireless.mode|802-11-wireless.ssid|ipv4.method'
